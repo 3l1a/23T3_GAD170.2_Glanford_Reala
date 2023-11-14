@@ -123,6 +123,9 @@ MonoBehaviour:
   Health: 0
   Rarity: 
   RandomColor: {r: 0, g: 0, b: 0, a: 0}
+  MaterialColour: {fileID: 0}
+  MainGame: {fileID: 0}
+  MainM: {fileID: 0}
   words:
   - Rare
   - Uncommon
