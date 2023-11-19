@@ -34,10 +34,6 @@ public class Plant : MonoBehaviour
         MainM.SortByHealth();
     }
 
-    private void Update()
-    {
-        
-    }
 
     private void SetStats()
     {

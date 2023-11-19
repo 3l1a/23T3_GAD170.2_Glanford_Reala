@@ -28,8 +28,8 @@ public class NewTest : MonoBehaviour
     public TextMeshProUGUI PlantNameText;
     public TextMeshProUGUI IntroText;
     public TextMeshProUGUI StateText;
-
     public TMP_InputField InputField;
+
     public string FullText;
     public string CurrentText;
     public string PlantNameString;
@@ -38,19 +38,17 @@ public class NewTest : MonoBehaviour
     public bool Refuse;
 
     // Start is called before the first frame update
-    void Start()
+    void Start() //
     {
         CurrentState = State.Start;
         PlantNameText.text = string.Empty;
 
     }
-    public void GetNewPlantButton()
+    public void GetNewPlantButton() // linked to the New Plant Button
     {
-
         CurrentState = State.AddPlant;
 
         TurnCheck();
-
 
     }
     private void Update()
@@ -68,24 +66,24 @@ public class NewTest : MonoBehaviour
             StartCoroutine(TypeWriter());
 
         }
-        else if (CurrentState == State.AddPlant)
+        else if (CurrentState == State.AddPlant) // Adds a new prefab clone and names it newPlant
         {
-            CheckTurnes();
+            TurnCheck();
 
             Debug.Log(" button");
 
             Turnes += 1;
 
-            Vector3 SpawnPosition = new Vector3(Turnes * Spacing - 400, 0, 800);
+            Vector3 SpawnPosition = new Vector3(Turnes * Spacing - 400, 0, 800); 
 
             GameObject newPlant = Instantiate(Plant, SpawnPosition, Quaternion.identity);
 
-            newPlant.name = "newPlant";// + Turnes;
+            newPlant.name = "newPlant";
 
             CurrentState = State.KeepRefuse;
         }
 
-        if (CurrentState == State.KeepRefuse)
+        if (CurrentState == State.KeepRefuse) // finds the newPlant using the name and asks the player to keep or refuse it.
         {
 
             GameObject newPlant = GameObject.Find("newPlant");
@@ -125,7 +123,7 @@ public class NewTest : MonoBehaviour
            
         }
 
-        if (CurrentState == State.End)
+        if (CurrentState == State.End) // calculates the total health and prints it out the the consol and through UI
         {
             CalculateTotalHealth();
 
@@ -142,12 +140,12 @@ public class NewTest : MonoBehaviour
     }
 
 
-    static int SortByHealth(Plant p1, Plant p2)
+    static int SortByHealth(Plant p1, Plant p2) // sorts the list by increasing health. lowest health is always at index 0. only called in Plant script.
     {
         return p1.Health.CompareTo(p2.Health);
     }
 
-    public float CalculateTotalHealth() // calculates total, but can obly be usesd once?
+    public float CalculateTotalHealth() // calculates total, but can obly be usesd once.
     {
         totalValue = 0;
         foreach (Plant plant in PlantList)
@@ -183,7 +181,7 @@ public class NewTest : MonoBehaviour
         PlantList.Remove(PlantToRemove);
 
     }
-    private void RemoveLeastHealthyPlant()
+    private void RemoveLeastHealthyPlant() //checks if the plant list is greater than 10 and calls the deactivateLowestHealthObject if 
     {
         Debug.Log("RemoveLastHealthyPlant has been called");
 
@@ -194,15 +192,6 @@ public class NewTest : MonoBehaviour
             DeactivateLowestHealthObject();
 
 
-        }
-
-    }
-    private void CheckTurnes()
-    {
-
-        if (Turnes >= 20)
-        {
-            //end game
         }
 
     }
@@ -217,7 +206,7 @@ public class NewTest : MonoBehaviour
         }
     }
 
-    private void RenamePlant()
+    private void RenamePlant() // sets the plant name to the players input in the inputFeild.
     {
         if (Input.GetKeyDown(KeyCode.Return))
         {
@@ -231,20 +220,20 @@ public class NewTest : MonoBehaviour
 
             CurrentState = State.AskAddPlant;
         }
-    }
+    } // 
     public void KeepButton()
     {
         Keep = true;
         Refuse = false;
 
-    }
+    } // linked to the Keep button
 
     public void RefuseButton()
     {
         Keep = false;
         Refuse = true;
 
-    }
+    } // linked to the Refuse button
 
     IEnumerator TypeWriter()
     {
@@ -259,9 +248,9 @@ public class NewTest : MonoBehaviour
         IntroText.text = string.Empty;
 
         CurrentState = State.AskAddPlant;
-    }
+    } // worked last time, isnt working this time :(
 
-    public void TurnCheck()
+    public void TurnCheck() //checks how many turnes player has had
     {
         if(Turnes >= 20)
         {
